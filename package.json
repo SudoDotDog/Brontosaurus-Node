@@ -22,6 +22,7 @@
   "dependencies": {
     "@brontosaurus/core": "^1.6.2",
     "@brontosaurus/definition": "^1.4.3",
+    "@sudoo/extract": "^1.2.0",
     "@sudoo/io": "^1.6.0",
     "connor": "^2.4.0"
   },
