@@ -18,5 +18,31 @@
   "bugs": {
     "url": "https://github.com/SudoDotDog/Brontosaurus-Node/issues"
   },
-  "homepage": "https://github.com/SudoDotDog/Brontosaurus-Node#readme"
+  "homepage": "https://github.com/SudoDotDog/Brontosaurus-Node#readme",
+  "dependencies": {
+    "@brontosaurus/core": "^1.6.2",
+    "@brontosaurus/definition": "^1.4.3",
+    "connor": "^2.4.0"
+  },
+  "devDependencies": {
+    "@sudoo/triforce": "^1.6.0"
+  },
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "include": [
+      "src/**/*.ts"
+    ],
+    "instrument": true,
+    "reporter": [
+      "json",
+      "text-summary"
+    ],
+    "report-dir": "coverage",
+    "require": [
+      "./test/tshook.js"
+    ],
+    "sourceMap": true
+  }
 }
