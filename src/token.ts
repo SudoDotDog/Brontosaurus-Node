@@ -9,7 +9,7 @@ import { getDefaultServer, parseToken, TokenType } from "./util";
 
 export class Token {
 
-    public static create(token: string, server: string = getDefaultServer()): Token | null {
+    public static create(token: string, server: string | undefined = getDefaultServer()): Token | null {
 
         const parsedToken: TokenType | null = parseToken(token);
 
@@ -29,6 +29,24 @@ export class Token {
         this._raw = raw;
         this._token = token;
         this._server = server;
+    }
+
+    public match(applicationKey: string): boolean {
+
+        if (!this._token.header.key) {
+            return false;
+        }
+
+        return this._token.header.key === applicationKey;
+    }
+
+    public clock(time: number = Date.now()) {
+
+        if (!this._token.header.expireAt) {
+            return false;
+        }
+
+        return this._token.header.expireAt < time;
     }
 
     public async validate(server?: string): Promise<boolean> {
