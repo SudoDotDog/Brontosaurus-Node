@@ -23,11 +23,13 @@
     "@brontosaurus/core": "^1.6.2",
     "@brontosaurus/definition": "^1.4.3",
     "@sudoo/extract": "^1.2.0",
-    "@sudoo/io": "^1.6.0",
-    "connor": "^2.4.0"
+    "connor": "^2.4.0",
+    "request": "^2.88.0"
   },
   "devDependencies": {
-    "@sudoo/triforce": "^1.6.0"
+    "@sudoo/io": "^1.6.0",
+    "@sudoo/triforce": "^1.6.0",
+    "@types/request": "^2.48.1"
   },
   "nyc": {
     "extension": [
