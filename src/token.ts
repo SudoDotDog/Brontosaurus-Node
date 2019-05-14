@@ -4,6 +4,8 @@
  * @description Token
  */
 
+import { IBrontosaurusBody, IBrontosaurusHeader } from "@brontosaurus/definition";
+import { Safe, SafeObject } from "@sudoo/extract";
 import { validateRepository } from "./repository";
 import { getDefaultServer, parseToken, TokenType } from "./util";
 
@@ -29,6 +31,16 @@ export class Token {
         this._raw = raw;
         this._token = token;
         this._server = server;
+    }
+
+    public get header(): SafeObject<IBrontosaurusHeader> {
+
+        return Safe.object(this._token.header);
+    }
+
+    public get body(): SafeObject<IBrontosaurusBody> {
+
+        return Safe.object(this._token.body);
     }
 
     public match(applicationKey: string): boolean {
