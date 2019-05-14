@@ -4,41 +4,50 @@
  * @description Token
  */
 
-import { SafeToken } from "./declare";
-import { getDefaultServer, parseToken } from "./util";
+import { validateRepository } from "./repository";
+import { getDefaultServer, parseToken, TokenType } from "./util";
 
 export class Token {
 
     public static create(token: string, server: string = getDefaultServer()): Token | null {
 
-        const safeToken: SafeToken | null = parseToken(token);
+        const parsedToken: TokenType | null = parseToken(token);
 
-        if (!safeToken) {
+        if (!parsedToken) {
             return null;
         }
 
-        return new Token(safeToken, server);
+        return new Token(token, parsedToken, server);
     }
 
-    private readonly _token: SafeToken;
+    private readonly _raw: string;
+    private readonly _token: TokenType;
     private readonly _server: string | undefined;
 
-    private constructor(token: SafeToken, server: string | undefined) {
+    private constructor(raw: string, token: TokenType, server: string | undefined) {
 
+        this._raw = raw;
         this._token = token;
         this._server = server;
     }
 
-    public async validate(server?: string) {
+    public async validate(server?: string): Promise<boolean> {
 
-        this._checkServer(server);
+        const checked: string = this._checkServer(server);
+
+        return await validateRepository(checked, this._raw);
     }
 
-    private _checkServer(server?: string) {
+    private _checkServer(server?: string): string {
 
-        if (!this._server && !server) {
-
-            throw new Error('Need Server');
+        if (server) {
+            return server;
         }
+
+        if (this._server) {
+            return this._server;
+        }
+
+        throw new Error('Need Server');
     }
 }

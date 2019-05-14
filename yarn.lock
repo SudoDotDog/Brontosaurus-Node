@@ -35,11 +35,6 @@
   resolved "https://registry.yarnpkg.com/@sudoo/bark/-/bark-2.6.1.tgz#04ec9a269c451abb7765915e2c710b0382e816fc"
   integrity sha512-HTjzCNHqE6WFp9S4dhmAtWS7RE0UTV90EcnR6LM7X+SXCIjkBC0JhNhss8nptiT2sDTs76rRV4SCXs6QNExooQ==
 
-"@sudoo/extract@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@sudoo/extract/-/extract-1.2.0.tgz#42c0753c1b76bc964180a54ca31668a9ac6576ae"
-  integrity sha512-3/F3HuTnX2tAvkSS1KA2A6DPwZQDVhlRT2xfDmHhXp0p2aENvfdvBaiUU+xCqvHfS/Koi4pBUoWryGkTWdn4IA==
-
 "@sudoo/io@^1.6.0":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@sudoo/io/-/io-1.6.0.tgz#efc631a04d55419ba1001a467b7151c7c070dfce"

@@ -6,10 +6,14 @@
 
 import { Brontosaurus } from "@brontosaurus/core";
 import { IBrontosaurusBody, IBrontosaurusHeader } from "@brontosaurus/definition";
-import { Safe } from "@sudoo/extract";
-import { SafeToken } from "./declare";
 
-export const parseToken = (token: string): SafeToken | null => {
+export type TokenType = {
+
+    header: IBrontosaurusHeader,
+    body: IBrontosaurusBody,
+};
+
+export const parseToken = (token: string): TokenType | null => {
 
     const header: IBrontosaurusHeader | null = Brontosaurus.decoupleHeader(token);
 
@@ -20,8 +24,8 @@ export const parseToken = (token: string): SafeToken | null => {
     }
 
     return {
-        header: Safe.object(header),
-        body: Safe.object(body),
+        header,
+        body,
     };
 };
 
