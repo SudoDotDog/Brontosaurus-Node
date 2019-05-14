@@ -9,19 +9,15 @@ import { IBrontosaurusBody, IBrontosaurusHeader } from "@brontosaurus/definition
 import { Safe } from "@sudoo/extract";
 import { SafeToken } from "./declare";
 
-export const parseToken = (token: string): SafeToken => {
+export const parseToken = (token: string): SafeToken | null => {
 
     const header: IBrontosaurusHeader | null = Brontosaurus.decoupleHeader(token);
 
-    // if (!header) {
-    //     throw createError(ERROR_CODE.TOKEN_DOES_NOT_CONTAIN_HEADER);
-    // }
-
     const body: IBrontosaurusBody | null = Brontosaurus.decoupleBody(token);
 
-    // if (!body) {
-    //     throw createError(ERROR_CODE.TOKEN_DOES_NOT_CONTAIN_BODY);
-    // }
+    if (!body || !header) {
+        return null;
+    }
 
     return {
         header: Safe.object(header),

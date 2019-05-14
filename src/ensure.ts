@@ -20,8 +20,8 @@ export class Ensure {
         this._server = server;
     }
 
-    public token() {
+    public token(token: string) {
 
-        return Token.create('', this._server);
+        return Token.create(token, this._server);
     }
 }
