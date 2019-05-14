@@ -1,20 +1,27 @@
 /**
  * @author WMXPY
  * @namespace Node
- * @description Ensure
+ * @description Node
  */
 
-export class BrontosaurusNode {
+import { Token } from "./token";
 
-    public static withServer(server: string) {
+export class Ensure {
 
-        return new BrontosaurusNode(server);
+    public static create(server?: string) {
+
+        return new Ensure(server);
     }
 
-    private readonly _server: string;
+    private readonly _server?: string;
 
-    private constructor(server: string) {
+    private constructor(server?: string) {
 
         this._server = server;
+    }
+
+    public token() {
+
+        return Token.create('', this._server);
     }
 }

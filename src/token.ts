@@ -4,32 +4,17 @@
  * @description Token
  */
 
-import { Brontosaurus } from "@brontosaurus/core";
-import { IBrontosaurusBody, IBrontosaurusHeader } from "@brontosaurus/definition";
-import { Safe, SafeObject } from "@sudoo/extract";
+import { getDefaultServer } from "./util";
 
-export type SafeToken = {
+export class Token {
 
-    readonly header: SafeObject<IBrontosaurusHeader>;
-    readonly body: SafeObject<IBrontosaurusBody>;
-};
+    public static create(token: string, server: string = getDefaultServer()) {
 
-export const parseToken = (token: string): SafeToken => {
+        return new Token();
+    }
 
-    const header: IBrontosaurusHeader | null = Brontosaurus.decoupleHeader(token);
+    private constructor() {
 
-    // if (!header) {
-    //     throw createError(ERROR_CODE.TOKEN_DOES_NOT_CONTAIN_HEADER);
-    // }
+    }
+}
 
-    const body: IBrontosaurusBody | null = Brontosaurus.decoupleBody(token);
-
-    // if (!body) {
-    //     throw createError(ERROR_CODE.TOKEN_DOES_NOT_CONTAIN_BODY);
-    // }
-
-    return {
-        header: Safe.object(header),
-        body: Safe.object(body),
-    };
-};
