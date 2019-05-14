@@ -21,11 +21,24 @@ export class Token {
     }
 
     private readonly _token: SafeToken;
-    private readonly _server: string;
+    private readonly _server: string | undefined;
 
-    private constructor(token: SafeToken, server: string) {
+    private constructor(token: SafeToken, server: string | undefined) {
 
         this._token = token;
         this._server = server;
+    }
+
+    public async validate(server?: string) {
+
+        this._checkServer(server);
+    }
+
+    private _checkServer(server?: string) {
+
+        if (!this._server && !server) {
+
+            throw new Error('Need Server');
+        }
     }
 }
