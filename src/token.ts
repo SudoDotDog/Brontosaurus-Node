@@ -9,13 +9,13 @@ import { Safe, SafeObject } from "@sudoo/extract";
 import { validateRepository } from "./repository";
 import { getDefaultApplicationKey, getDefaultServer, parseToken, TokenType } from "./util";
 
-export class Token {
+export class AuthToken {
 
     public static create(
         token: string,
         server: string | undefined = getDefaultServer(),
         applicationKey: string | undefined = getDefaultApplicationKey(),
-    ): Token | null {
+    ): AuthToken | null {
 
         const parsedToken: TokenType | null = parseToken(token);
 
@@ -23,7 +23,7 @@ export class Token {
             return null;
         }
 
-        return new Token(token, parsedToken, server, applicationKey);
+        return new AuthToken(token, parsedToken, server, applicationKey);
     }
 
     private readonly _raw: string;

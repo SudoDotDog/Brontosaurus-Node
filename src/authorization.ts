@@ -4,13 +4,13 @@
  * @description Node
  */
 
-import { Token } from "./token";
+import { AuthToken } from "./token";
 
-export class Ensure {
+export class Authorization {
 
     public static create(server?: string, applicationKey?: string) {
 
-        return new Ensure(server, applicationKey);
+        return new Authorization(server, applicationKey);
     }
 
     private readonly _server?: string;
@@ -24,6 +24,6 @@ export class Ensure {
 
     public token(token: string) {
 
-        return Token.create(token, this._server, this._applicationKey);
+        return AuthToken.create(token, this._server, this._applicationKey);
     }
 }

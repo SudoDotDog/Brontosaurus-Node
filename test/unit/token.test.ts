@@ -7,7 +7,7 @@
 
 import { expect } from 'chai';
 import * as Chance from "chance";
-import { Token } from '../../src/token';
+import { AuthToken } from '../../src/token';
 import { createMockToken } from '../mock/token';
 
 describe('Given {Token} class', (): void => {
@@ -17,7 +17,7 @@ describe('Given {Token} class', (): void => {
     it('should be able to create', (): void => {
 
         const mockToken = createMockToken();
-        const token: Token | null = Token.create(mockToken);
+        const token: AuthToken | null = AuthToken.create(mockToken);
 
         // tslint:disable-next-line
         expect(token).to.be.exist;
