@@ -31,5 +31,16 @@ export const parseToken = (token: string): TokenType | null => {
 
 export const getDefaultServer = (): string | undefined => {
 
+    if (process.env.BRONTOSAURUS_SERVER) {
+        return process.env.BRONTOSAURUS_SERVER;
+    }
+    return;
+};
+
+export const getDefaultApplicationKey = (): string | undefined => {
+
+    if (process.env.BRONTOSAURUS_APPLICATION_KEY) {
+        return process.env.BRONTOSAURUS_APPLICATION_KEY;
+    }
     return;
 };

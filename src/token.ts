@@ -7,11 +7,15 @@
 import { IBrontosaurusBody, IBrontosaurusHeader } from "@brontosaurus/definition";
 import { Safe, SafeObject } from "@sudoo/extract";
 import { validateRepository } from "./repository";
-import { getDefaultServer, parseToken, TokenType } from "./util";
+import { getDefaultApplicationKey, getDefaultServer, parseToken, TokenType } from "./util";
 
 export class Token {
 
-    public static create(token: string, server: string | undefined = getDefaultServer()): Token | null {
+    public static create(
+        token: string,
+        server: string | undefined = getDefaultServer(),
+        applicationKey: string | undefined = getDefaultApplicationKey(),
+    ): Token | null {
 
         const parsedToken: TokenType | null = parseToken(token);
 
@@ -19,18 +23,20 @@ export class Token {
             return null;
         }
 
-        return new Token(token, parsedToken, server);
+        return new Token(token, parsedToken, server, applicationKey);
     }
 
     private readonly _raw: string;
     private readonly _token: TokenType;
-    private readonly _server: string | undefined;
+    private readonly _server?: string;
+    private readonly _applicationKey?: string;
 
-    private constructor(raw: string, token: TokenType, server: string | undefined) {
+    private constructor(raw: string, token: TokenType, server?: string, applicationKey?: string) {
 
         this._raw = raw;
         this._token = token;
         this._server = server;
+        this._applicationKey = applicationKey;
     }
 
     public get header(): SafeObject<IBrontosaurusHeader> {
@@ -43,13 +49,13 @@ export class Token {
         return Safe.object(this._token.body);
     }
 
-    public match(applicationKey: string): boolean {
+    public match(applicationKey?: string): boolean {
 
         if (!this._token.header.key) {
             return false;
         }
 
-        return this._token.header.key === applicationKey;
+        return this._token.header.key === this._checkApplicationKey(applicationKey);
     }
 
     public clock(time: number = Date.now()) {
@@ -66,6 +72,19 @@ export class Token {
         const checked: string = this._checkServer(server);
 
         return await validateRepository(checked, this._raw);
+    }
+
+    private _checkApplicationKey(applicationKey?: string): string {
+
+        if (applicationKey) {
+            return applicationKey;
+        }
+
+        if (this._applicationKey) {
+            return this._applicationKey;
+        }
+
+        throw new Error('Need application key');
     }
 
     private _checkServer(server?: string): string {
