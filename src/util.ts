@@ -6,6 +6,7 @@
 
 import { Brontosaurus } from "@brontosaurus/core";
 import { IBrontosaurusBody, IBrontosaurusHeader } from "@brontosaurus/definition";
+import * as Url from "url";
 
 export type TokenType = {
 
@@ -13,8 +14,10 @@ export type TokenType = {
     body: IBrontosaurusBody,
 };
 
-export const parseUrl = () => {
+export const joinUrl = (base: string, ...paths: string[]): string => {
 
+    const url: Url.Url = Url.parse(base);
+    return `${url.protocol}//${url.host}/` + paths.join('/');
 };
 
 export const parseToken = (token: string): TokenType | null => {

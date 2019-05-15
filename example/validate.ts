@@ -4,13 +4,21 @@
  * @description Validate
  */
 
-import * as Chance from "chance";
-import { createMockToken } from "../test/mock/token";
+import { validateRepository } from "../src/repository";
 
 (async () => {
 
-    const chance: Chance.Chance = new Chance('example-validate');
+    const token: string = process.argv[2];
 
-    const applicationKey: string = chance.string();
-    const token: string = createMockToken(applicationKey);
+    const server: string = 'http://localhost:8080';
+
+    try {
+
+        const result: boolean = await validateRepository(server, token);
+
+        console.log('SUCCEED', result);
+    } catch (err) {
+
+        console.log('FAILED', err);
+    }
 })();

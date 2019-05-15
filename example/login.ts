@@ -12,8 +12,15 @@ import { loginRepository } from "../src/repository";
     const password: string = 'test';
     const applicationKey: string = 'BRONTOSAURUS_RED';
 
-    const server: string = 'localhost:8080';
-    const response = await loginRepository(server, username, password, applicationKey);
+    const server: string = 'http://localhost:8080';
 
-    console.log(response);
+    try {
+
+        const response = await loginRepository(server, username, password, applicationKey);
+
+        console.log('SUCCEED', response);
+    } catch (err) {
+
+        console.log('FAILED', err);
+    }
 })();

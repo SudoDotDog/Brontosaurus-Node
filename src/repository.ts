@@ -6,6 +6,7 @@
 
 import * as Request from "request";
 import * as Url from "url";
+import { ERROR_CODE, panic } from "./panic";
 
 export const loginRepository = (
     server: string,
@@ -27,13 +28,23 @@ export const loginRepository = (
             },
         };
 
-        Request(options, (error: any, response: Request.Response, body: any) => {
+        Request(options, (error: any, response: Request.Response, body: {
+            readonly token: string;
+        }) => {
 
-            if (error || response.statusCode !== 200) {
-                reject(error);
+            if (error) {
+                reject(panic.code(ERROR_CODE.EXTERNAL_REQUEST_FAILED, error.toString()));
             }
 
-            resolve(body);
+            if (response.statusCode !== 200) {
+                reject(panic.code(ERROR_CODE.EXTERNAL_REQUEST_FAILED, response.statusCode.toString()));
+            }
+
+            if (!body.token) {
+                reject(panic.code(ERROR_CODE.INTERNAL_REQUEST_FAILED));
+            }
+
+            resolve(body.token);
         });
     });
 };
@@ -53,8 +64,12 @@ export const validateRepository = (server: string, token: string): Promise<boole
 
         Request(options, (error: any, response: Request.Response, body: any) => {
 
-            if (error || response.statusCode !== 200) {
-                reject(error);
+            if (error) {
+                reject(panic.code(ERROR_CODE.EXTERNAL_REQUEST_FAILED, error.toString()));
+            }
+
+            if (response.statusCode !== 200) {
+                reject(panic.code(ERROR_CODE.EXTERNAL_REQUEST_FAILED, response.statusCode.toString()));
             }
 
             resolve(body);
