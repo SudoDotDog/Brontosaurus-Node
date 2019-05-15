@@ -56,7 +56,9 @@ export class AuthToken {
             return false;
         }
 
-        return this._token.header.key === this._checkApplicationKey(applicationKey);
+        const checkedApplicationKey: string = this._checkApplicationKey(applicationKey);
+
+        return this._token.header.key === checkedApplicationKey;
     }
 
     public clock(time: number = Date.now()) {
@@ -72,7 +74,10 @@ export class AuthToken {
 
         const checked: string = this._checkServer(server);
 
-        return await validateRepository(checked, this._raw);
+        return await validateRepository(
+            checked,
+            this._raw,
+        );
     }
 
     private _checkApplicationKey(applicationKey?: string): string {

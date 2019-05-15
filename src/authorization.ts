@@ -4,6 +4,7 @@
  * @description Node
  */
 
+import { AuthAgent } from "./agent";
 import { AuthToken } from "./token";
 
 export class Authorization {
@@ -25,5 +26,10 @@ export class Authorization {
     public token(token: string) {
 
         return AuthToken.create(token, this._server, this._applicationKey);
+    }
+
+    public agent() {
+
+        return AuthAgent.create(this._server, this._applicationKey);
     }
 }

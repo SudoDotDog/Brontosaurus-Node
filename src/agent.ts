@@ -5,6 +5,7 @@
  */
 
 import { ERROR_CODE, panic } from "./panic";
+import { loginRepository } from "./repository";
 import { getDefaultApplicationKey, getDefaultServer } from "./util";
 
 export class AuthAgent {
@@ -24,6 +25,19 @@ export class AuthAgent {
 
         this._server = server;
         this._applicationKey = applicationKey;
+    }
+
+    public async login(username: string, password: string, server?: string, applicationKey?: string): Promise<string> {
+
+        const checkedServer: string = this._checkServer(server);
+        const checkedApplicationKey: string = this._checkApplicationKey(applicationKey);
+
+        return await loginRepository(
+            checkedServer,
+            username,
+            password,
+            checkedApplicationKey,
+        );
     }
 
     private _checkApplicationKey(applicationKey?: string): string {
