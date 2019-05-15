@@ -6,3 +6,10 @@
 [![downloads](https://img.shields.io/npm/dm/@brontosaurus/node.svg)](https://www.npmjs.com/package/@brontosaurus/node)
 
 :tennis: NodeJS integration for brontosaurus
+
+## Environment
+
+You can set `Brontosaurus server URL` and `Application key` by environment variables
+
+-   Brontosaurus server URL: `BRONTOSAURUS_SERVER`
+-   Application key: `BRONTOSAURUS_APPLICATION_KEY`

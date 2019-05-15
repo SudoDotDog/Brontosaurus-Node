@@ -4,6 +4,7 @@
  * @description Agent
  */
 
+import { ERROR_CODE, panic } from "./panic";
 import { getDefaultApplicationKey, getDefaultServer } from "./util";
 
 export class AuthAgent {
@@ -35,7 +36,7 @@ export class AuthAgent {
             return this._applicationKey;
         }
 
-        throw new Error('Need application key');
+        throw panic.code(ERROR_CODE.NEED_APPLICATION_KEY);
     }
 
     private _checkServer(server?: string): string {
@@ -48,6 +49,6 @@ export class AuthAgent {
             return this._server;
         }
 
-        throw new Error('Need Server');
+        throw panic.code(ERROR_CODE.NEED_SERVER_ROUTE);
     }
 }
