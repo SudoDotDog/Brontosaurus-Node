@@ -13,6 +13,10 @@ export type TokenType = {
     body: IBrontosaurusBody,
 };
 
+export const parseUrl = () => {
+
+};
+
 export const parseToken = (token: string): TokenType | null => {
 
     const header: IBrontosaurusHeader | null = Brontosaurus.decoupleHeader(token);
