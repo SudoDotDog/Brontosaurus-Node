@@ -67,7 +67,7 @@ export class AuthToken {
             return false;
         }
 
-        return this._token.header.expireAt < time;
+        return this._token.header.expireAt > time;
     }
 
     public async validate(server?: string): Promise<boolean> {
