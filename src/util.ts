@@ -7,12 +7,7 @@
 import { Brontosaurus } from "@brontosaurus/core";
 import { IBrontosaurusBody, IBrontosaurusHeader } from "@brontosaurus/definition";
 import * as Url from "url";
-
-export type TokenType = {
-
-    header: IBrontosaurusHeader,
-    body: IBrontosaurusBody,
-};
+import { AuthorizationToken } from "./declare";
 
 export const joinUrl = (base: string, ...paths: string[]): string => {
 
@@ -20,7 +15,7 @@ export const joinUrl = (base: string, ...paths: string[]): string => {
     return `${url.protocol}//${url.host}/` + paths.join('/');
 };
 
-export const parseToken = (token: string): TokenType | null => {
+export const parseToken = (token: string): AuthorizationToken | null => {
 
     const header: IBrontosaurusHeader | null = Brontosaurus.decoupleHeader(token);
 

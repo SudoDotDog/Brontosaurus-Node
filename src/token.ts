@@ -6,9 +6,10 @@
 
 import { IBrontosaurusBody, IBrontosaurusHeader } from "@brontosaurus/definition";
 import { Safe, SafeObject } from "@sudoo/extract";
+import { AuthorizationToken } from "./declare";
 import { ERROR_CODE, panic } from "./panic";
 import { validateRepository } from "./repository";
-import { getDefaultApplicationKey, getDefaultServer, parseToken, TokenType } from "./util";
+import { getDefaultApplicationKey, getDefaultServer, parseToken } from "./util";
 
 export class AuthToken {
 
@@ -18,7 +19,7 @@ export class AuthToken {
         applicationKey: string | undefined = getDefaultApplicationKey(),
     ): AuthToken | null {
 
-        const parsedToken: TokenType | null = parseToken(token);
+        const parsedToken: AuthorizationToken | null = parseToken(token);
 
         if (!parsedToken) {
             return null;
@@ -28,16 +29,21 @@ export class AuthToken {
     }
 
     private readonly _raw: string;
-    private readonly _token: TokenType;
+    private readonly _token: AuthorizationToken;
     private readonly _server?: string;
     private readonly _applicationKey?: string;
 
-    private constructor(raw: string, token: TokenType, server?: string, applicationKey?: string) {
+    private constructor(raw: string, token: AuthorizationToken, server?: string, applicationKey?: string) {
 
         this._raw = raw;
         this._token = token;
         this._server = server;
         this._applicationKey = applicationKey;
+    }
+
+    public get raw(): AuthorizationToken {
+
+        return this._token;
     }
 
     public get header(): SafeObject<IBrontosaurusHeader> {
