@@ -51,7 +51,7 @@ export const loginRepository = (
 
 export const validateRepository = (server: string, token: string): Promise<boolean> => {
 
-    return new Promise<boolean>((resolve: (result: boolean) => void, reject: (reason: any) => void) => {
+    return new Promise<boolean>((resolve: (result: boolean) => void) => {
 
         const route: string = Url.resolve(server, '/validate');
         const options: Request.Options = {
@@ -65,11 +65,11 @@ export const validateRepository = (server: string, token: string): Promise<boole
         Request(options, (error: any, response: Request.Response, body: any) => {
 
             if (error) {
-                reject(panic.code(ERROR_CODE.EXTERNAL_REQUEST_FAILED, error.toString()));
+                resolve(false);
             }
 
             if (response.statusCode !== 200) {
-                reject(panic.code(ERROR_CODE.EXTERNAL_REQUEST_FAILED, response.statusCode.toString()));
+                resolve(false);
             }
 
             resolve(body);
