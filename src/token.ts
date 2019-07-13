@@ -41,18 +41,22 @@ export class AuthToken {
         this._applicationKey = applicationKey;
     }
 
-    public get raw(): AuthorizationToken {
-
+    public get raw(): string {
+        return this._raw;
+    }
+    public get token(): AuthorizationToken {
         return this._token;
     }
-
-    public get header(): SafeObject<IBrontosaurusHeader> {
-
+    public get header(): IBrontosaurusHeader {
+        return this._token.header;
+    }
+    public get body(): IBrontosaurusBody {
+        return this._token.body;
+    }
+    public get safeHeader(): SafeObject<IBrontosaurusHeader> {
         return Safe.object(this._token.header);
     }
-
-    public get body(): SafeObject<IBrontosaurusBody> {
-
+    public get safeBody(): SafeObject<IBrontosaurusBody> {
         return Safe.object(this._token.body);
     }
 
