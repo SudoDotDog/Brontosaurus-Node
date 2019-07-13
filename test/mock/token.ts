@@ -20,6 +20,26 @@ export const createMockToken = (key: string = chance.string()): string => {
         username,
         mint,
         groups: [],
+        tags: [],
+        infos: {},
+        beacons: {},
+    }).token();
+};
+
+export const createMockOrganizationToken = (key: string = chance.string()): string => {
+
+    const secret: string = chance.string();
+    const username: string = chance.string();
+    const mint: string = chance.string();
+    const organization: string = chance.string();
+
+    return Brontosaurus.token(secret).sign(key, {
+        username,
+        organization,
+        mint,
+        groups: [],
+        tags: [],
+        organizationTags: [],
         infos: {},
         beacons: {},
     }).token();

@@ -158,7 +158,11 @@ export class AuthToken {
 
     public organizationHasTags(...tags: string[]): boolean {
 
-        const organizationTags: string[] = this.body.organizationTags;
+        const organizationTags: string[] | undefined = this.body.organizationTags;
+
+        if (!organizationTags) {
+            return false;
+        }
 
         for (const tag of tags) {
             if (!organizationTags.includes(tag)) {
@@ -170,7 +174,11 @@ export class AuthToken {
 
     public organizationHasOneOfTags(...tags: string[]): boolean {
 
-        const organizationTags: string[] = this.body.organizationTags;
+        const organizationTags: string[] | undefined = this.body.organizationTags;
+
+        if (!organizationTags) {
+            return false;
+        }
 
         for (const tag of tags) {
             if (organizationTags.includes(tag)) {
