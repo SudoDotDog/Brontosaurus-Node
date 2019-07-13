@@ -71,7 +71,7 @@ export class AuthToken {
         return this._token.header.key === checkedApplicationKey;
     }
 
-    public clock(time: number = Date.now()) {
+    public clock(time: number = Date.now()): boolean {
 
         if (!this._token.header.expireAt) {
             return false;
@@ -88,6 +88,96 @@ export class AuthToken {
             checked,
             this._raw,
         );
+    }
+
+    public async authenticate(
+        clockTime: number = Date.now(),
+        applicationKey?: string,
+        server?: string,
+    ): Promise<boolean> {
+
+        if (!this.clock(clockTime)) {
+            return false;
+        }
+
+        if (!this.match(applicationKey)) {
+            return false;
+        }
+
+        const validationResult: boolean = await this.validate(server);
+        return validationResult;
+    }
+
+    public hasGroups(...groups: string[]): boolean {
+
+        const userGroups: string[] = this.body.groups;
+
+        for (const group of groups) {
+            if (!userGroups.includes(group)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public hasOneOfGroups(...groups: string[]): boolean {
+
+        const userGroups: string[] = this.body.groups;
+
+        for (const group of groups) {
+            if (userGroups.includes(group)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public accountHasTags(...tags: string[]): boolean {
+
+        const userTags: string[] = this.body.tags;
+
+        for (const tag of tags) {
+            if (!userTags.includes(tag)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public accountHasOneOfTags(...tags: string[]): boolean {
+
+        const userTags: string[] = this.body.tags;
+
+        for (const tag of tags) {
+            if (userTags.includes(tag)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public organizationHasTags(...tags: string[]): boolean {
+
+        const organizationTags: string[] = this.body.organizationTags;
+
+        for (const tag of tags) {
+            if (!organizationTags.includes(tag)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public organizationHasOneOfTags(...tags: string[]): boolean {
+
+        const organizationTags: string[] = this.body.organizationTags;
+
+        for (const tag of tags) {
+            if (organizationTags.includes(tag)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private _checkApplicationKey(applicationKey?: string): string {
