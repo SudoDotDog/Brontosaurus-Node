@@ -1,6 +1,6 @@
 {
   "name": "@brontosaurus/node",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": ":tennis: NodeJS integration for brontosaurus",
   "main": "index.js",
   "repository": {
@@ -17,8 +17,8 @@
   },
   "homepage": "https://github.com/SudoDotDog/Brontosaurus-Node#readme",
   "dependencies": {
-    "@brontosaurus/core": "^1.7.0",
-    "@brontosaurus/definition": "^1.5.0",
+    "@brontosaurus/core": "^1.8.1",
+    "@brontosaurus/definition": "^1.6.1",
     "@sudoo/extract": "^1.2.0",
     "connor": "^2.5.1",
     "request": "^2.88.0"
