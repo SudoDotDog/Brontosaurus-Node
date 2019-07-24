@@ -20,11 +20,11 @@
     "@brontosaurus/core": "^1.8.1",
     "@brontosaurus/definition": "^1.6.1",
     "@sudoo/extract": "^1.2.0",
-    "connor": "^2.5.1",
+    "connor": "^2.6.0",
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "@sudoo/io": "^1.6.0",
+    "@sudoo/io": "^1.6.1",
     "@sudoo/triforce": "^1.6.0",
     "@types/request": "^2.48.2"
   },
