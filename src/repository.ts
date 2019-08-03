@@ -76,3 +76,66 @@ export const validateRepository = (server: string, token: string): Promise<boole
         });
     });
 };
+
+export const verifyAccountRepository = (server: string, account: string): Promise<boolean> => {
+
+    return new Promise<boolean>((resolve: (result: boolean) => void) => {
+
+        const route: string = Url.resolve(server, '/account/verify/' + account);
+        const options: Request.Options = {
+            uri: route,
+            method: 'GET',
+            json: {},
+        };
+
+        Request(options, (error: any, response: Request.Response, body: {
+            valid: boolean;
+            account: {
+                username: string;
+                displayName: string;
+            };
+        }) => {
+
+            if (error) {
+                resolve(false);
+            }
+
+            if (response.statusCode !== 200) {
+                resolve(false);
+            }
+
+            resolve(body.valid);
+        });
+    });
+};
+
+export const verifyOrganizationRepository = (server: string, organization: string): Promise<boolean> => {
+
+    return new Promise<boolean>((resolve: (result: boolean) => void) => {
+
+        const route: string = Url.resolve(server, '/organization/verify/' + organization);
+        const options: Request.Options = {
+            uri: route,
+            method: 'GET',
+            json: {},
+        };
+
+        Request(options, (error: any, response: Request.Response, body: {
+            valid: boolean;
+            organization: {
+                name: string;
+            };
+        }) => {
+
+            if (error) {
+                resolve(false);
+            }
+
+            if (response.statusCode !== 200) {
+                resolve(false);
+            }
+
+            resolve(body.valid);
+        });
+    });
+};
