@@ -5,7 +5,7 @@
  */
 
 import { ERROR_CODE, panic } from "./panic";
-import { loginRepository, verifyAccountRepository, verifyOrganizationRepository } from "./repository";
+import { loginRepository } from "./repository";
 import { getDefaultApplicationKey, getDefaultServer } from "./util";
 
 export class AuthAgent {
@@ -37,26 +37,6 @@ export class AuthAgent {
             username,
             password,
             checkedApplicationKey,
-        );
-    }
-
-    public async verifyAccount(username: string, server?: string): Promise<boolean> {
-
-        const checkedServer: string = this._checkServer(server);
-
-        return await verifyAccountRepository(
-            checkedServer,
-            username,
-        );
-    }
-
-    public async verifyOrganization(organization: string, server?: string): Promise<boolean> {
-
-        const checkedServer: string = this._checkServer(server);
-
-        return await verifyOrganizationRepository(
-            checkedServer,
-            organization,
         );
     }
 

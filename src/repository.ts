@@ -77,7 +77,7 @@ export const validateRepository = (server: string, token: string): Promise<boole
     });
 };
 
-export const verifyAccountRepository = (server: string, account: string): Promise<boolean> => {
+export const verifyAccountRepository = (server: string, green: string, account: string): Promise<boolean> => {
 
     return new Promise<boolean>((resolve: (result: boolean) => void) => {
 
@@ -85,6 +85,9 @@ export const verifyAccountRepository = (server: string, account: string): Promis
         const options: Request.Options = {
             uri: route,
             method: 'GET',
+            headers: {
+                authorization: 'bearer ' + green,
+            },
             json: {},
         };
 
@@ -109,7 +112,7 @@ export const verifyAccountRepository = (server: string, account: string): Promis
     });
 };
 
-export const verifyOrganizationRepository = (server: string, organization: string): Promise<boolean> => {
+export const verifyOrganizationRepository = (server: string, green: string, organization: string): Promise<boolean> => {
 
     return new Promise<boolean>((resolve: (result: boolean) => void) => {
 
@@ -117,6 +120,9 @@ export const verifyOrganizationRepository = (server: string, organization: strin
         const options: Request.Options = {
             uri: route,
             method: 'GET',
+            headers: {
+                authorization: 'bearer ' + green,
+            },
             json: {},
         };
 
