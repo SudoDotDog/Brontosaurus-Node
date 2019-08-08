@@ -5,14 +5,35 @@
  * @override Mock
  */
 
-import { Brontosaurus } from "@brontosaurus/core";
+import { Brontosaurus, BrontosaurusKey } from "@brontosaurus/core";
 import * as Chance from "chance";
+import { generateKeyPairSync } from "crypto";
 
 const chance: Chance.Chance = new Chance('mock-token');
 
+export const generateKey = (): BrontosaurusKey => {
+
+    const result = generateKeyPairSync('rsa', {
+        modulusLength: 2048,
+        publicKeyEncoding: {
+            type: 'spki',
+            format: 'pem',
+        },
+        privateKeyEncoding: {
+            type: 'pkcs8',
+            format: 'pem',
+        },
+    } as any);
+
+    return {
+        public: result.publicKey,
+        private: result.privateKey,
+    };
+};
+
 export const createMockToken = (key: string = chance.string()): string => {
 
-    const secret: string = chance.string();
+    const secret: BrontosaurusKey = generateKey();
     const username: string = chance.string();
     const mint: string = chance.string();
 
@@ -28,7 +49,7 @@ export const createMockToken = (key: string = chance.string()): string => {
 
 export const createMockOrganizationToken = (key: string = chance.string()): string => {
 
-    const secret: string = chance.string();
+    const secret: BrontosaurusKey = generateKey();
     const username: string = chance.string();
     const mint: string = chance.string();
     const organization: string = chance.string();
