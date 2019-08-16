@@ -46,3 +46,11 @@ export const getDefaultApplicationKey = (): string | undefined => {
     }
     return;
 };
+
+export const getDefaultPublicKey = (): string | undefined => {
+
+    if (process.env.BRONTOSAURUS_PUBLIC_KEY) {
+        return process.env.BRONTOSAURUS_PUBLIC_KEY;
+    }
+    return;
+};

@@ -4,12 +4,13 @@
  * @description Token
  */
 
+import { Brontosaurus, verifyString } from "@brontosaurus/core";
 import { IBrontosaurusBody, IBrontosaurusHeader } from "@brontosaurus/definition";
 import { Safe, SafeObject } from "@sudoo/extract";
 import { AuthorizationToken } from "./declare";
 import { ERROR_CODE, panic } from "./panic";
 import { validateRepository } from "./repository";
-import { getDefaultApplicationKey, getDefaultServer, parseToken } from "./util";
+import { getDefaultApplicationKey, getDefaultPublicKey, getDefaultServer, parseToken } from "./util";
 
 export class AuthToken {
 
@@ -17,6 +18,7 @@ export class AuthToken {
         token: string,
         server: string | undefined = getDefaultServer(),
         applicationKey: string | undefined = getDefaultApplicationKey(),
+        publicKey: string | undefined = getDefaultPublicKey(),
     ): AuthToken | null {
 
         const parsedToken: AuthorizationToken | null = parseToken(token);
@@ -25,20 +27,28 @@ export class AuthToken {
             return null;
         }
 
-        return new AuthToken(token, parsedToken, server, applicationKey);
+        return new AuthToken(token, parsedToken, server, applicationKey, publicKey);
     }
 
     private readonly _raw: string;
     private readonly _token: AuthorizationToken;
     private readonly _server?: string;
     private readonly _applicationKey?: string;
+    private readonly _publicKey?: string;
 
-    private constructor(raw: string, token: AuthorizationToken, server?: string, applicationKey?: string) {
+    private constructor(
+        raw: string,
+        token: AuthorizationToken,
+        server?: string,
+        applicationKey?: string,
+        publicKey?: string,
+    ) {
 
         this._raw = raw;
         this._token = token;
         this._server = server;
         this._applicationKey = applicationKey;
+        this._publicKey = publicKey;
     }
 
     public get raw(): string {
@@ -78,6 +88,17 @@ export class AuthToken {
         }
 
         return this._token.header.expireAt > time;
+    }
+
+    public verify(publicKey?: string): boolean {
+
+        const parts: [string, string, string] | null = Brontosaurus.decouple(this._raw);
+        const body: string = parts[0] + '.' + parts[1];
+        const key: string = parts[2];
+
+        const checked: string = this._checkPublicKey(publicKey);
+
+        return verifyString(body, key, checked);
     }
 
     public async validate(server?: string): Promise<boolean> {
@@ -212,5 +233,18 @@ export class AuthToken {
         }
 
         throw panic.code(ERROR_CODE.NEED_SERVER_ROUTE);
+    }
+
+    private _checkPublicKey(publicKey?: string): string {
+
+        if (publicKey) {
+            return publicKey;
+        }
+
+        if (this._publicKey) {
+            return this._publicKey;
+        }
+
+        throw panic.code(ERROR_CODE.NEED_PUBLIC_KEY);
     }
 }
