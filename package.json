@@ -17,15 +17,15 @@
   },
   "homepage": "https://github.com/SudoDotDog/Brontosaurus-Node#readme",
   "dependencies": {
-    "@brontosaurus/core": "^2.1.1",
+    "@brontosaurus/core": "^2.1.2",
     "@brontosaurus/definition": "^2.1.1",
-    "@sudoo/extract": "^1.2.0",
+    "@sudoo/extract": "^1.2.1",
     "connor": "^2.6.0",
     "request": "^2.88.0"
   },
   "devDependencies": {
     "@sudoo/io": "^1.6.1",
-    "@sudoo/triforce": "^1.8.1",
+    "@sudoo/triforce": "^1.8.2",
     "@types/request": "^2.48.2"
   },
   "nyc": {
