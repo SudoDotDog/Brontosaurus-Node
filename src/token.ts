@@ -93,6 +93,11 @@ export class AuthToken {
     public verify(publicKey?: string): boolean {
 
         const parts: [string, string, string] | null = Brontosaurus.decouple(this._raw);
+
+        if (!parts) {
+            return false;
+        }
+
         const body: string = parts[0] + '.' + parts[1];
         const key: string = parts[2];
 
