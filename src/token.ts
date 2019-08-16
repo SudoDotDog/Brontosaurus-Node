@@ -106,21 +106,11 @@ export class AuthToken {
         return verifyString(body, key, checked);
     }
 
-    public async validate(server?: string): Promise<boolean> {
-
-        const checked: string = this._checkServer(server);
-
-        return await validateRepository(
-            checked,
-            this._raw,
-        );
-    }
-
-    public async authenticate(
+    public authenticate(
         clockTime: number = Date.now(),
         applicationKey?: string,
-        server?: string,
-    ): Promise<boolean> {
+        publicKey?: string,
+    ): boolean {
 
         if (!this.clock(clockTime)) {
             return false;
@@ -130,8 +120,17 @@ export class AuthToken {
             return false;
         }
 
-        const validationResult: boolean = await this.validate(server);
-        return validationResult;
+        return this.verify(publicKey);
+    }
+
+    public async validate(server?: string): Promise<boolean> {
+
+        const checked: string = this._checkServer(server);
+
+        return await validateRepository(
+            checked,
+            this._raw,
+        );
     }
 
     public hasGroups(...groups: string[]): boolean {
