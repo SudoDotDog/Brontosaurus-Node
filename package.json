@@ -8,7 +8,8 @@
     "url": "git+https://github.com/SudoDotDog/Brontosaurus-Node.git"
   },
   "keywords": [
-    "Brontosaurus"
+    "Brontosaurus",
+    "JWT"
   ],
   "author": "WMXPY",
   "license": "MIT",
