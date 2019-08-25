@@ -1,6 +1,6 @@
 {
   "name": "@brontosaurus/node",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": ":tennis: NodeJS integration for brontosaurus",
   "main": "index.js",
   "repository": {
