@@ -123,6 +123,20 @@ export class AuthToken {
         return this.verify(publicKey);
     }
 
+    public async secureAuthenticate(
+        clockTime: number = Date.now(),
+        applicationKey?: string,
+        publicKey?: string,
+        server?: string,
+    ): Promise<boolean> {
+
+        if (!this.authenticate(clockTime, applicationKey, publicKey)) {
+            return false;
+        }
+
+        return await this.validate(server);
+    }
+
     public async validate(server?: string): Promise<boolean> {
 
         const checked: string = this._checkServer(server);
