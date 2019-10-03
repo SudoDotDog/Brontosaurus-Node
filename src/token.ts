@@ -5,7 +5,7 @@
  */
 
 import { Brontosaurus, verifyString } from "@brontosaurus/core";
-import { IBrontosaurusBody, IBrontosaurusHeader } from "@brontosaurus/definition";
+import { Basics, IBrontosaurusBody, IBrontosaurusHeader } from "@brontosaurus/definition";
 import { Safe, SafeObject } from "@sudoo/extract";
 import { AuthorizationToken } from "./declare";
 import { ERROR_CODE, panic } from "./panic";
@@ -68,6 +68,47 @@ export class AuthToken {
     }
     public get safeBody(): SafeObject<IBrontosaurusBody> {
         return Safe.object(this._token.body);
+    }
+
+    public get groups(): string[] {
+        return this.body.groups;
+    }
+    public get mint(): string {
+        return this.body.mint;
+    }
+    public get infos(): Record<string, Basics> {
+        return this.body.infos;
+    }
+    public get beacons(): Record<string, Basics> {
+        return this.body.beacons;
+    }
+    public get username(): string {
+        return this.body.username;
+    }
+    public get displayName(): string | undefined {
+        const displayName: string | undefined = this.body.displayName;
+        return displayName;
+    }
+    public get email(): string | undefined {
+        return this.body.email;
+    }
+    public get name(): string {
+        if (this.body.displayName) {
+            return this.body.displayName;
+        }
+        return this.body.username;
+    }
+    public get organization(): string | undefined {
+        return this.body.organization;
+    }
+    public get tags(): string[] {
+        return this.body.tags;
+    }
+    public get organizationTags(): string[] | undefined {
+        return this.body.organizationTags;
+    }
+    public get combineTags(): string[] {
+        return [...this.body.tags, ...(this.body.organizationTags || [])];
     }
 
     public match(applicationKey?: string): boolean {
