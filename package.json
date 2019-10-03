@@ -18,8 +18,8 @@
   },
   "homepage": "https://github.com/SudoDotDog/Brontosaurus-Node#readme",
   "dependencies": {
-    "@brontosaurus/core": "^2.3.0",
-    "@brontosaurus/definition": "^2.3.0",
+    "@brontosaurus/core": "^3.0.0",
+    "@brontosaurus/definition": "^3.0.0",
     "@sudoo/extract": "^1.2.1",
     "connor": "^2.6.0",
     "request": "^2.88.0"
