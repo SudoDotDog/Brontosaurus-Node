@@ -212,6 +212,11 @@ export class AuthToken {
         return false;
     }
 
+    public hasNoGroups(...groups: string[]): boolean {
+
+        return !this.hasOneOfGroups(...groups);
+    }
+
     public accountHasTags(...tags: string[]): boolean {
 
         const userTags: string[] = this.body.tags;
