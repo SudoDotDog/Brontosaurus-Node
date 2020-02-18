@@ -44,6 +44,7 @@ export const createMockToken = (key: string = chance.string()): string => {
         tags: [],
         infos: {},
         beacons: {},
+        modifies: [],
     }).token();
 };
 
@@ -63,5 +64,6 @@ export const createMockOrganizationToken = (key: string = chance.string()): stri
         organizationTags: [],
         infos: {},
         beacons: {},
+        modifies: [],
     }).token();
 };
