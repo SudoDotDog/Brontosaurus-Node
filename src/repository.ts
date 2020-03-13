@@ -4,6 +4,7 @@
  * @description Repository
  */
 
+import { HTTP_RESPONSE_CODE } from "@sudoo/magic";
 import * as Request from "request";
 import * as Url from "url";
 import { ERROR_CODE, panic } from "./panic";
@@ -36,7 +37,7 @@ export const loginRepository = (
                 reject(panic.code(ERROR_CODE.EXTERNAL_REQUEST_FAILED, error.toString()));
             }
 
-            if (response.statusCode !== 200) {
+            if (response.statusCode !== HTTP_RESPONSE_CODE.OK) {
                 reject(panic.code(ERROR_CODE.EXTERNAL_REQUEST_FAILED, response.statusCode.toString()));
             }
 
@@ -68,7 +69,7 @@ export const validateRepository = (server: string, token: string): Promise<boole
                 resolve(false);
             }
 
-            if (response.statusCode !== 200) {
+            if (response.statusCode !== HTTP_RESPONSE_CODE.OK) {
                 resolve(false);
             }
 
@@ -103,7 +104,7 @@ export const verifyAccountRepository = (server: string, green: string, account: 
                 resolve(false);
             }
 
-            if (response.statusCode !== 200) {
+            if (response.statusCode !== HTTP_RESPONSE_CODE.OK) {
                 resolve(false);
             }
 
@@ -137,7 +138,7 @@ export const verifyOrganizationRepository = (server: string, green: string, orga
                 resolve(false);
             }
 
-            if (response.statusCode !== 200) {
+            if (response.statusCode !== HTTP_RESPONSE_CODE.OK) {
                 resolve(false);
             }
 

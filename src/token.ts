@@ -85,6 +85,9 @@ export class AuthToken {
     public get username(): string {
         return this.body.username;
     }
+    public get namespace(): string {
+        return this.body.namespace;
+    }
     public get displayName(): string | undefined {
         const displayName: string | undefined = this.body.displayName;
         return displayName;
@@ -109,6 +112,16 @@ export class AuthToken {
     }
     public get combineTags(): string[] {
         return [...this.body.tags, ...(this.body.organizationTags || [])];
+    }
+
+    public getCombined(): string {
+
+        return `${this.namespace}/${this.username}`;
+    }
+
+    public getURLFriendlyCombined(): string {
+
+        return `${this.namespace}_${this.username}`;
     }
 
     public match(applicationKey?: string): boolean {
