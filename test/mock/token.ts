@@ -6,6 +6,7 @@
  */
 
 import { Brontosaurus, BrontosaurusKey } from "@brontosaurus/core";
+import { DEFAULT_BRONTOSAURUS_NAMESPACE } from "@brontosaurus/definition";
 import * as Chance from "chance";
 import { generateKeyPairSync } from "crypto";
 
@@ -39,6 +40,7 @@ export const createMockToken = (key: string = chance.string()): string => {
 
     return Brontosaurus.token(secret).sign(key, {
         username,
+        namespace: DEFAULT_BRONTOSAURUS_NAMESPACE.DEFAULT,
         mint,
         groups: [],
         tags: [],
@@ -57,6 +59,7 @@ export const createMockOrganizationToken = (key: string = chance.string()): stri
 
     return Brontosaurus.token(secret).sign(key, {
         username,
+        namespace: DEFAULT_BRONTOSAURUS_NAMESPACE.DEFAULT,
         organization,
         mint,
         groups: [],
