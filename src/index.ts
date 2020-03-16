@@ -4,6 +4,7 @@
  * @description Index
  */
 
+export { DEFAULT_BRONTOSAURUS_NAMESPACE } from "@brontosaurus/definition";
 export * from "./agent";
 export * from "./authorization";
 export * from "./green";
