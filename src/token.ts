@@ -5,7 +5,7 @@
  */
 
 import { Brontosaurus, verifyString } from "@brontosaurus/core";
-import { Basics, IBrontosaurusBody, IBrontosaurusHeader } from "@brontosaurus/definition";
+import { Basics, DEFAULT_BRONTOSAURUS_NAMESPACE, IBrontosaurusBody, IBrontosaurusHeader } from "@brontosaurus/definition";
 import { Safe, SafeObject } from "@sudoo/extract";
 import { AuthorizationToken } from "./declare";
 import { ERROR_CODE, panic } from "./panic";
@@ -116,12 +116,12 @@ export class AuthToken {
 
     public getCombined(): string {
 
-        return `${this.namespace}/${this.username}`;
+        return this._joinCombined('/');
     }
 
     public getURLFriendlyCombined(): string {
 
-        return `${this.namespace}_${this.username}`;
+        return this._joinCombined('_');
     }
 
     public match(applicationKey?: string): boolean {
@@ -323,5 +323,13 @@ export class AuthToken {
         }
 
         throw panic.code(ERROR_CODE.NEED_PUBLIC_KEY);
+    }
+
+    private _joinCombined(separator: string): string {
+
+        if (this.namespace === DEFAULT_BRONTOSAURUS_NAMESPACE.DEFAULT) {
+            return this.username;
+        }
+        return `${this.namespace}${separator}${this.username}`;
     }
 }
