@@ -327,6 +327,9 @@ export class AuthToken {
 
     private _joinCombined(separator: string): string {
 
+        if (typeof this.namespace !== 'string') {
+            return this.username;
+        }
         if (this.namespace === DEFAULT_BRONTOSAURUS_NAMESPACE.DEFAULT) {
             return this.username;
         }

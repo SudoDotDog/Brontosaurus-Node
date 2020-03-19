@@ -4,32 +4,40 @@
  * @description Parse
  */
 
+import { DEFAULT_BRONTOSAURUS_NAMESPACE } from "@brontosaurus/definition";
+
 export type ParseCombinedResult = {
 
+    readonly method: 'regular' | 'url-friendly' | 'default';
     readonly username: string;
     readonly namespace: string;
 };
 
-export const parseUsernameNamespaceCombined = (combined: string): ParseCombinedResult | null => {
+export const parseUsernameNamespaceCombined = (combined: string): ParseCombinedResult => {
 
-    const splited: string[] = combined.split('/');
-    if (combined.length === 2) {
+    const regularSplited: string[] = combined.split('/');
+    if (regularSplited.length === 2) {
+
         return {
-            namespace: splited[0],
-            username: splited[1],
+            method: 'regular',
+            username: regularSplited[1],
+            namespace: regularSplited[0],
         };
     }
-    return null;
-};
 
-export const parseUsernameNamespaceURLFriendlyCombined = (combined: string): ParseCombinedResult | null => {
+    const urlFriendlySplited: string[] = combined.split('_');
+    if (urlFriendlySplited.length === 2) {
 
-    const splited: string[] = combined.split('_');
-    if (combined.length === 2) {
         return {
-            namespace: splited[0],
-            username: splited[1],
+            method: 'url-friendly',
+            username: urlFriendlySplited[1],
+            namespace: urlFriendlySplited[0],
         };
     }
-    return null;
+
+    return {
+        method: 'default',
+        username: combined,
+        namespace: DEFAULT_BRONTOSAURUS_NAMESPACE.DEFAULT,
+    };
 };
