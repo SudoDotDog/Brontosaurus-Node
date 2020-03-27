@@ -27,7 +27,6 @@ export class Green {
         this._server = server;
     }
 
-
     public async verifyAccount(username: string, server?: string): Promise<boolean> {
 
         const checkedServer: string = this._checkServer(server);
