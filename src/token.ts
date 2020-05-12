@@ -88,6 +88,9 @@ export class AuthToken {
     public get namespace(): string {
         return this.body.namespace;
     }
+    public get avatar(): string | undefined {
+        return this.body.avatar;
+    }
     public get displayName(): string | undefined {
         const displayName: string | undefined = this.body.displayName;
         return displayName;
