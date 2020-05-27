@@ -70,6 +70,9 @@ export class AuthToken {
         return Safe.object(this._token.body);
     }
 
+    public get attempt(): string {
+        return this.header.attempt;
+    }
     public get groups(): string[] {
         return this.body.groups;
     }
