@@ -32,7 +32,10 @@ export const generateKey = (): BrontosaurusKey => {
     };
 };
 
-export const createMockToken = (key: string = chance.string()): string => {
+export const createMockToken = (
+    key: string = chance.string(),
+    attempt: string = chance.string(),
+): string => {
 
     const secret: BrontosaurusKey = generateKey();
     const username: string = chance.string();
@@ -47,10 +50,13 @@ export const createMockToken = (key: string = chance.string()): string => {
         infos: {},
         beacons: {},
         modifies: [],
-    }).token();
+    }).token(attempt);
 };
 
-export const createMockOrganizationToken = (key: string = chance.string()): string => {
+export const createMockOrganizationToken = (
+    key: string = chance.string(),
+    attempt: string = chance.string(),
+): string => {
 
     const secret: BrontosaurusKey = generateKey();
     const username: string = chance.string();
@@ -68,5 +74,5 @@ export const createMockOrganizationToken = (key: string = chance.string()): stri
         infos: {},
         beacons: {},
         modifies: [],
-    }).token();
+    }).token(attempt);
 };
