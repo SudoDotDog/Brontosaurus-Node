@@ -13,7 +13,7 @@ export class Green {
     public static create(
         green: string,
         server: string | undefined = getDefaultServer(),
-    ) {
+    ): Green {
 
         return new Green(green, server);
     }

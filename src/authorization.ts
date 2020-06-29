@@ -13,7 +13,7 @@ export class Authorization {
         server?: string,
         applicationKey?: string,
         publicKey?: string,
-    ) {
+    ): Authorization {
 
         return new Authorization(
             server,
@@ -37,7 +37,7 @@ export class Authorization {
         this._publicKey = publicKey;
     }
 
-    public token(token: string) {
+    public token(token: string): AuthToken | null {
 
         return AuthToken.create(
             token,
@@ -47,7 +47,7 @@ export class Authorization {
         );
     }
 
-    public agent() {
+    public agent(): AuthAgent {
 
         return AuthAgent.create(this._server, this._applicationKey);
     }

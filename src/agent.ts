@@ -13,7 +13,7 @@ export class AuthAgent {
     public static create(
         server: string | undefined = getDefaultServer(),
         applicationKey: string | undefined = getDefaultApplicationKey(),
-    ) {
+    ): AuthAgent {
 
         return new AuthAgent(server, applicationKey);
     }
