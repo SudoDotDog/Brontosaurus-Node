@@ -8,6 +8,6 @@ import { IBrontosaurusBody, IBrontosaurusHeader } from "@brontosaurus/definition
 
 export type AuthorizationToken = {
 
-    header: IBrontosaurusHeader,
-    body: IBrontosaurusBody,
+    readonly header: IBrontosaurusHeader;
+    readonly body: IBrontosaurusBody;
 };
