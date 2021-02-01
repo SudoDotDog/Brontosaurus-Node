@@ -18,7 +18,7 @@
   "homepage": "https://github.com/SudoDotDog/Brontosaurus-Node#readme",
   "dependencies": {
     "@brontosaurus/core": "^3.4.1",
-    "@brontosaurus/definition": "^3.4.0",
+    "@brontosaurus/definition": "^3.4.1",
     "@sudoo/extract": "^1.4.2",
     "@sudoo/magic": "^1.8.0",
     "connor": "^2.7.0",
