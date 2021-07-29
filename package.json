@@ -1,7 +1,7 @@
 {
   "name": "@brontosaurus/node",
   "version": "3.6.0",
-  "description": ":tennis: NodeJS integration for brontosaurus",
+  "description": "NodeJS integration for brontosaurus",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SudoDotDog/Brontosaurus-Node.git"
