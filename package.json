@@ -21,7 +21,7 @@
     "@brontosaurus/definition": "^3.4.1",
     "@sudoo/extract": "^1.4.2",
     "@sudoo/magic": "^1.9.0",
-    "connor": "^2.8.0",
+    "connor": "^2.9.0",
     "request": "^2.88.2"
   },
   "devDependencies": {
